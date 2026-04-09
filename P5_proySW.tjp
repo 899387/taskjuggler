@@ -152,54 +152,59 @@ task WMGame "Web & Mobile Game" {
     }    
   }
 
-  task tMobileF "Mobile Front End" {
-      purge chargeset
-      chargeset mFront
-      responsible jorge
-      depends WMGame.tback.tBEd
-      task tMGUId "Mobile GUI Design" {
-        effort 9d
-        actual:effort 15d
-        allocate jorge
-        journalentry 2026-01-15 "Problems with the GUI design tool" {
-          author jorge
-          alert yellow
-          summary "The tool used for the GUI design has given me a lot of problems. I recommend to look for other one."
-        }
-      }
+task tMobileF "Mobile Front End" {
+    purge chargeset
+    chargeset mFront
+    responsible jorge
+    depends WMGame.tback.tBEd
 
-      task tMFEc "Mobile Front End Construction" {
-        effort 15d
-        allocate jorge
-        depends WMGame.tMobileF.tMGUId
+    task tMGUId "Mobile GUI Design" {
+      effort 9d
+      actual:effort 15d
+      allocate jorge
+      journalentry 2026-04-09 "Problems with the GUI design tool" {
+        author jorge
+        alert yellow
+        summary "The tool used for the GUI design has given me a lot of problems."
       }
-      task tMFEt "Mobile Front End Test" {
-        effort 6d
-        allocate jorge
-        depends WMGame.tMobileF.tMFEc
-      }  
     }
 
-    task cloud "dCloudB" {
-      chargeset back 
-      responsible jorge
-      depends WMGame.tback.tBEd
-
-      task tEval "Cloud Provider Evaluation" {
-        effort 3d
-        allocate jorge
-        journalentry 2026-04-09 "Decidiendo entre AWS y Azure" {
-          author jorge
-          summary "He comparado precios y el despliegue en AWS parece más sólido para nuestro backend."
-          alert green
-        }
-      }
-      task tDeploy "Cloud Infrastructure Deployment" {
-        effort 5d
-        allocate jorge
-        depends !tEval
-        }
+    task tMFEc "Mobile Front End Construction" {
+      effort 15d
+      allocate jorge
+      depends !tMGUId
     }
+    
+    task tMFEt "Mobile Front End Test" {
+      effort 6d
+      allocate jorge
+      depends !tMFEc
+    }  
+  }
+
+  task cloud "dCloudB" {
+    purge chargeset
+    # Asegúrate de que no haya un espacio después de 'back'
+    chargeset back
+    responsible jorge
+    depends WMGame.tback.tBEd
+
+    task tEval "Cloud Provider Evaluation" {
+      effort 3d
+      allocate jorge
+      journalentry 2026-04-09 "Decidiendo entre AWS y Azure" {
+        author jorge
+        summary "He comparado precios y el despliegue en AWS parece más sólido."
+        alert green
+      }
+    }
+    
+    task tDeploy "Cloud Infrastructure Deployment" {
+      effort 5d
+      allocate jorge
+      depends !tEval
+    }
+  }
 
   task ttest "Acceptance tests" {
       start 2026-05-15
