@@ -197,7 +197,7 @@ task WMGame "Web & Mobile Game" {
       task tDeploy "Cloud Infrastructure Deployment" {
         effort 5d
         allocate jorge
-        depends WMGame.cloud.tEval
+        depends !tEval
         }
     }
 
