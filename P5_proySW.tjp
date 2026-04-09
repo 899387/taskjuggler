@@ -281,8 +281,8 @@ textreport frame "" {
   }
 
   textreport planI "PlanInicial" {
-    format html
-    center '<[report id = "PlanInicial"]>'
+    formats html
+    center '<[report id="PlanInicial"]>'
   }
   
   textreport "Status" {
@@ -334,7 +334,7 @@ taskreport overview "" {
 
 taskreport PlanInicial "" {
   scenarios plan
-  headline "Planificación Inicial
+  headline "Planificación Inicial"
   columns bsi, name, start, end, effort, chart { scale day }
 
 }
