@@ -352,3 +352,4 @@ resourcereport resourceGraph "" {
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
 }
+#visualizacion
